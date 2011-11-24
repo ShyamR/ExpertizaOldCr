@@ -85,7 +85,19 @@ class AssignmentTeam < Team
     end
     return links
   end
-  
+
+  #used to get the files for the codereview
+  def get_codefiles
+    codefiles = Codefile.new
+    for team_member in self.get_participants
+      for codefile in team_member.get_codefiles
+        codefiles << codefile
+      end
+    end
+    return links
+  end
+
+
   def get_path
     self.get_participants.first.get_path
   end

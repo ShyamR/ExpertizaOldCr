@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20111025015938) do
     t.string   "review_assignment_strategy"
     t.integer  "max_reviews_per_submission"
     t.integer  "review_topic_threshold",            :default => 0
+    t.boolean  "codereview"
   end
 
   add_index "assignments", ["course_id"], :name => "fk_assignments_courses"
@@ -59,6 +60,31 @@ ActiveRecord::Schema.define(:version => 20111025015938) do
   add_index "assignments", ["review_of_review_questionnaire_id"], :name => "fk_assignments_review_of_review_questionnaires"
   add_index "assignments", ["review_questionnaire_id"], :name => "fk_assignments_review_questionnaires"
   add_index "assignments", ["wiki_type_id"], :name => "fk_assignments_wiki_types"
+
+
+  #table for ability to store code review file information
+  create_table "code_review_files", :force => true do |t|
+    t.text     "contents"
+    t.string   "name"
+    t.integer  "participantid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  #table for ability to store code comments for code review files
+  create_table "code_review_comments", :force => true do |t|
+    t.integer  "participantid"
+    t.integer  "codefileid"
+    t.string   "title"
+    t.text     "body"
+    t.integer  "r_begins"
+    t.integer  "r_end"
+    t.integer  "r_scroll"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+
 
   create_table "comments", :force => true do |t|
     t.integer "participant_id", :null => false

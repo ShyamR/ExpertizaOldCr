@@ -109,6 +109,19 @@ class AssignmentParticipant < Participant
     self.submitted_hyperlinks.nil? ? [] : YAML::load(self.submitted_hyperlinks)
   end
 
+  #used to get the code files associated with a particular assignment
+  def get_codefiles
+    if self.team
+      codefiles = self.team.get_codefiles
+    else
+      codefiles = CodeReviewFile.getParticipantCodeFiles(self.id)
+    end
+
+    return codefiles
+  end
+
+
+
   #Copy this participant to a course
   def copy(course_id)
     part = CourseParticipant.find_by_user_id_and_parent_id(self.user_id,course_id)
