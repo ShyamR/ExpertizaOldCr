@@ -1,5 +1,6 @@
+
 <!-- if the assignment is a code review assignment -->
-<% if participant.assignment and participant.assignment.codereview %>
+<% if participant.assignment  %>
     <!-- if the user is a student, show ability to upload files, otherwise graders will not be able to upload files -->
     <% if session[:user].role_id == 1 %>
         <h2>Upload CodeReview File</h2>
@@ -56,4 +57,5 @@
     <% end %>
 <% end %>
 <br/>
+
 
